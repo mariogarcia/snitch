@@ -1,0 +1,3 @@
+include 'columbus'
+
+rootProject.name = 'snitch'

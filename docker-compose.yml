@@ -1,0 +1,50 @@
+version: "2"
+services:
+    postgres:
+      build: ./docker/postgres/
+      image: snitch/db
+      ports:
+        - "5432:5432"
+      volumes:
+        - db-data:/snitch-db-data
+    zookeeper:
+      image: wurstmeister/zookeeper
+      ports:
+        - "2181:2181"
+    kafka:
+      build: ./docker/kafka/
+      image: snitch/kafka
+      ports:
+        - "9092"
+      links:
+        - zookeeper:zookeeper
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: 10.8.1.182
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    dev:
+      build: ./docker/dev/
+      image: snitch/dev
+      links:
+        - postgres:postgres
+        - kafka:kafka
+        - zookeeper:zookeeper
+      ports:
+        - "3333:3333"
+        - "8080:8080"
+        - "3000:3000"
+      volumes:
+        - $PRJ_WS:/home/dev/ws
+        - $HOME/.m2:/home/dev/.m2
+        - $HOME/.gradle:/home/dev/.gradle
+        - $HOME/.sdkman/archives:/home/dev/.sdkman/archives
+        - $HOME/.sdkman/candidates:/home/dev/.sdkman/candidates
+        - $HOME/.grails:/home/dev/.grails
+        - /etc/localtime:/etc/localtime:ro
+        - /tmp/.X11-unix:/tmp/.X11-unix
+      environment:
+        - DISPLAY=unix$DISPLAY
+
+volumes:
+  db-data:
