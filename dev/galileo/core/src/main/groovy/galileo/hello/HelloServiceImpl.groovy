@@ -13,7 +13,7 @@ class HelloServiceImpl implements HelloService {
    * {@inheritDoc}
    */
   @Override
-  Observable<String> getMessage(String name) {
-    return Observable.just("Hello $name")
+  Observable<String> getMessage() {
+    return Observable.just("Hello john doe ${new Date()}")
   }
 }

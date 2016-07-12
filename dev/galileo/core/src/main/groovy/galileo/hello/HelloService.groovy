@@ -10,13 +10,11 @@ import rx.Observable
 interface HelloService {
 
   /**
-   * It should return a customized greetings message for the name of
-   * the person passed as parameter
+   * Return a new greetings message
    *
-   * @param name the name of the person we want to greet
    * @return an observable with a greetings message
    * @since 0.1.0
    */
-  Observable<String> getMessage(String name)
+  Observable<String> getMessage()
 
 }

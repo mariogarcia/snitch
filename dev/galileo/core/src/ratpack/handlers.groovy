@@ -3,9 +3,7 @@ import static ratpack.groovy.Groovy.ratpack
 import static galileo.common.handler.ValidatorHandler.createValidator
 import static galileo.common.handler.BindingHandler.createBinding
 
-import galileo.hello.HelloRequest
 import galileo.hello.HelloHandler
-import galileo.hello.HelloValidators
 
 /**
  *             _                        _
@@ -20,10 +18,8 @@ import galileo.hello.HelloValidators
 ratpack {
   handlers {
 
-    prefix("hello") {
-      all(createBinding(HelloRequest))
-      all(createValidator(HelloRequest, HelloValidators.&checkRequest))
-      post(HelloHandler)
+    prefix("greetings") {
+      get(HelloHandler)
     }
 
   }
