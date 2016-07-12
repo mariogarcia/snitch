@@ -1,0 +1,22 @@
+buildscript {
+  dependencies {
+    classpath pluginslib.ratpack
+  }
+}
+
+apply plugin: "codenarc"
+apply plugin: "net.saliman.cobertura"
+apply plugin: "io.ratpack.ratpack-groovy"
+
+dependencies {
+  compile ratpack.dependency("guice")
+  compile ratpack.dependency("rx")
+
+  compile libs.helios
+  compile libs.javaslang
+
+  runtime libs.slf4j_api
+  runtime libs.logback
+
+  testCompile libs.spock_genesis
+}
