@@ -44,7 +44,7 @@ public class TwitterProducer {
 		BlockingQueue<String> queue = new LinkedBlockingQueue<String>(10000);
 		StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
 		// add some track terms
-		endpoint.trackTerms(Lists.newArrayList("#piweek"));
+		endpoint.trackTerms(Lists.newArrayList("#piweek", "Impuesto de Sociedades", "Sagan", "#vayamovida"));
 
 		Authentication auth = new OAuth1(consumerKey, consumerSecret, token, secret);
 		// Authentication auth = new BasicAuth(username, password);

@@ -14,6 +14,7 @@ dependencies {
 
   compile libs.helios
   compile libs.javaslang
+  compile libs.kafka_clients
 
   runtime libs.slf4j_api
   runtime libs.logback

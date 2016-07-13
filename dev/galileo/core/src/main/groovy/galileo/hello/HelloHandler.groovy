@@ -4,6 +4,7 @@ import static galileo.common.handler.Utils.render
 import static ratpack.sse.ServerSentEvents.serverSentEvents
 import static ratpack.stream.Streams.periodically
 
+import rx.Observable
 import ratpack.sse.Event
 import ratpack.sse.ServerSentEvents
 import org.reactivestreams.Publisher
@@ -16,23 +17,31 @@ import ratpack.handling.Context
 
 class HelloHandler implements Handler {
 
+  static final Integer FREQUENCY_MS = 5000
+
   @Inject
   HelloService service
 
   @Override
   public void handle(final Context ctx) {
-    Publisher<String> stream =
-      periodically(ctx,
-                   Duration.ofMillis(1000),
-                   { Integer i -> i < 5 ? i.toString() : null } )
+    ServerSentEvents sse = createSSE(ctx)
 
-    ServerSentEvents events =
-      serverSentEvents(stream,
-                       { Event e -> e.id({ x -> "$x".toString()}).event("counter").data { i -> "event " + i} })
-
-    service
-    .getMessage()
-    .map { message -> events }
+    Observable
+    .just(sse)
     .subscribe(ctx.&render)
+  }
+
+  ServerSentEvents createSSE(final Context ctx) {
+    Publisher<Map> stream = periodically(ctx, Duration.ofMillis(FREQUENCY_MS), { i -> service.getNextTweet() })
+    ServerSentEvents events = serverSentEvents(stream, this.&createEvent)
+
+    return events
+  }
+
+  Event createEvent(Event e) {
+    return e
+    .id({ Map event -> event?.id?.toString()})
+    .event("counter")
+    .data { Map event -> event?.data?.toString()}
   }
 }

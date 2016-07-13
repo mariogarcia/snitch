@@ -15,6 +15,6 @@ interface HelloService {
    * @return an observable with a greetings message
    * @since 0.1.0
    */
-  Observable<String> getMessage()
+  Map getNextTweet()
 
 }

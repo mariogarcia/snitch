@@ -8,6 +8,7 @@ ext {
     slf4j_simple: "org.slf4j:slf4j-simple:1.7.12",
     logback:"ch.qos.logback:logback-classic:1.0.1",
     jooq: 'org.jooq:jooq:3.8.2',
+    kafka_clients: 'org.apache.kafka:kafka-clients:0.10.0.0',
     hikari: 'com.zaxxer:HikariCP:2.4.6',
     jdbc_postgres: 'org.postgresql:postgresql:9.3-1102-jdbc41',
     groovy: 'org.codehaus.groovy:groovy-all:2.4.7',
