@@ -1,1 +1,18 @@
-apply plugin: 'scala'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+plugins {
+  id 'scala'
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+dependencies {
+  compileOnly 'org.scala-lang:scala-library:2.11.1'
+  compileOnly 'org.apache.spark:spark-core_2.10:1.1.0'
+}
