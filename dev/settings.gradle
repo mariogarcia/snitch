@@ -1,4 +1,5 @@
 include 'galileo:core'
 include 'columbus'
+include 'soho:soho-tweet-stats'
 
 rootProject.name = 'snitch'
