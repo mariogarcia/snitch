@@ -5,12 +5,13 @@ repositories {
     jcenter()
 }
 
-mainClassName='columbus.kafka.TwitterProducer'
+mainClassName='columbus.Application'
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
 
     compile 'com.twitter:hbc-core:2.2.0'
+    compile 'com.sparkjava:spark-core:2.5'
     compile 'org.apache.kafka:kafka-clients:0.10.0.0'
 
     testCompile 'junit:junit:4.12'
