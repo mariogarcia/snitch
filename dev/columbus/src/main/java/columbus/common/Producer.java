@@ -18,4 +18,8 @@ public interface Producer<T> extends Runnable {
      * @since 0.1.0
      */
     public void execute(T producer, Properties properties);
+
+    public String getId();
+
+    public void setId(String id);
 }

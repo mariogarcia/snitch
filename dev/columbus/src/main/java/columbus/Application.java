@@ -4,6 +4,9 @@ import static spark.Spark.post;
 import static spark.Spark.port;
 import static spark.Spark.delete;
 
+import spark.Request;
+import spark.Response;
+
 import columbus.common.Producer;
 import columbus.common.ProducerManager;
 import columbus.common.DefaultProducerManager;
@@ -14,20 +17,28 @@ public class Application {
 
     public static void main(String args[]) throws Exception {
         port(5050);
-        post("/twitter/:hash", (req, res) -> {
-                String hashtag = req.params("hash");
-                System.out.println("Creating producer for tag: #" + hashtag);
 
-                Producer producer = manager.startProducer(new TwitterHashtagProducer("twitter-" + hashtag,"#" + hashtag));
-                res.status(201);
+        post("/twitter/:hash", Application::addProducer);
+        delete("/twitter/:id", Application::deleteProducer);
+    }
 
-                return producer;
-        });
+    public static String addProducer(final Request req, final Response res) {
+        String hashtag = req.params("hash");
+        System.out.println("Creating producer for tag: #" + hashtag);
 
-        delete("/twitter", (req, res) -> {
-                manager.stop();
-                res.status(204);
-                return "";
-        });
+        Producer producer = manager.startProducer(new TwitterHashtagProducer("twitter-" + hashtag,"#" + hashtag));
+        res.status(201);
+
+        return producer.getId();
+    }
+
+    public static String deleteProducer(final Request req, final Response res) {
+        String id = req.params("id");
+        System.out.println("Stopping producer with id: " + id);
+
+        manager.stopProducerById(id);
+        res.status(204);
+
+        return "";
     }
 }
