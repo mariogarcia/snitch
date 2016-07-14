@@ -3,7 +3,8 @@ import static ratpack.groovy.Groovy.ratpack
 import static galileo.common.handler.ValidatorHandler.createValidator
 import static galileo.common.handler.BindingHandler.createBinding
 
-import galileo.hello.HelloHandler
+import galileo.twitter.TwitterSSEHandler
+import galileo.twitter.TwitterPollingHandler
 
 /**
  *             _                        _
@@ -18,9 +19,12 @@ import galileo.hello.HelloHandler
 ratpack {
   handlers {
 
-    prefix("greetings") {
-      get(HelloHandler)
+    prefix("twitter") {
+      get(TwitterSSEHandler)
     }
 
+    prefix("twitter/polling/:topic") {
+      get(TwitterPollingHandler)
+    }
   }
 }

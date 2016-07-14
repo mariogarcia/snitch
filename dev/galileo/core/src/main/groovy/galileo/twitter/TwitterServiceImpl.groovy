@@ -1,4 +1,4 @@
-package galileo.hello
+package galileo.twitter
 
 import rx.Observable
 import org.apache.kafka.clients.consumer.*
@@ -12,15 +12,15 @@ import groovy.json.JsonSlurper
  *
  * @since 0.1.0
  */
-class HelloServiceImpl implements HelloService {
+class TwitterServiceImpl implements TwitterService {
 
   /**
    * {@inheritDoc}
    */
   @Override
-  Map getNextTweet() {
+  Map getNextTweet(String topic) {
     KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
-    consumer.subscribe(Arrays.asList("twitter-topic"));
+    consumer.subscribe(Arrays.asList(topic));
 
     ConsumerRecords<String,String> records = consumer.poll(1000)
     List<Map> data = records?.collect(this.&toMap) as List<Map>

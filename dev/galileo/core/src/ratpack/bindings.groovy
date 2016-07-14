@@ -1,6 +1,6 @@
 import static ratpack.groovy.Groovy.ratpack
 
-import galileo.hello.HelloModule
+import galileo.twitter.TwitterModule
 
 /**
  *    _    _         _ _
@@ -14,6 +14,6 @@ import galileo.hello.HelloModule
  */
 ratpack {
   bindings {
-    module HelloModule
+    module TwitterModule
   }
 }

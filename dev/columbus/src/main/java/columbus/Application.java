@@ -16,7 +16,7 @@ public class Application {
     static final ProducerManager manager = new DefaultProducerManager();
 
     public static void main(String args[]) throws Exception {
-        port(5050);
+        port(6060);
 
         post("/twitter/:hash", Application::addProducer);
         delete("/twitter/:id", Application::deleteProducer);

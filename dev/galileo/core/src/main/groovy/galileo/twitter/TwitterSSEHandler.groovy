@@ -1,4 +1,4 @@
-package galileo.hello
+package galileo.twitter
 
 import static galileo.common.handler.Utils.render
 import static ratpack.sse.ServerSentEvents.serverSentEvents
@@ -15,12 +15,12 @@ import javax.inject.Inject
 import ratpack.handling.Handler
 import ratpack.handling.Context
 
-class HelloHandler implements Handler {
+class TwitterSSEHandler implements Handler {
 
   static final Integer FREQUENCY_MS = 5000
 
   @Inject
-  HelloService service
+  TwitterService service
 
   @Override
   public void handle(final Context ctx) {
@@ -32,7 +32,7 @@ class HelloHandler implements Handler {
   }
 
   ServerSentEvents createSSE(final Context ctx) {
-    Publisher<Map> stream = periodically(ctx, Duration.ofMillis(FREQUENCY_MS), { i -> service.getNextTweet() })
+    Publisher<Map> stream = periodically(ctx, Duration.ofMillis(FREQUENCY_MS), { i -> service.getNextTweet("twitter-topic") })
     ServerSentEvents events = serverSentEvents(stream, this.&createEvent)
 
     return events
