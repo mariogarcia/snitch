@@ -1,0 +1,5 @@
+== Intro
+
+Snitch is an experiment project to study how to use some popular "big
+data" technologies. The idea is to build a set of tools to create and
+analyze a dataset and extract value information from it.

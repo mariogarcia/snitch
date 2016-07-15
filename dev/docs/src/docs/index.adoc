@@ -1,0 +1,23 @@
+= Snitch
+:revnumber: 0.1.0
+:numbered:
+:imagesDir: images/
+:baseDir: ../../..
+:stem:
+
+:sourceDir: {baseDir}/src/main/java
+:testDir: {baseDir}/src/test/java
+:spockDir: {baseDir}/src/test/groovy
+
+"a person who tells someone in authority (such as the police or a teacher) about something wrong that someone has done : someone who snitches"
+-- Merriam Webster
+
+Snitch is a pet project for doing research on some big data Apache
+projects such as Spark and Kafka.
+
+
+include::chapter/intro.adoc[]
+
+include::chapter/technologies.adoc[]
+
+include::chapter/modules.adoc[]
