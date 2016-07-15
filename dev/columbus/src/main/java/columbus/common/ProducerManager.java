@@ -7,14 +7,7 @@ public interface ProducerManager {
      * @return
      * @since 0.1.0
      */
-    public Producer startProducer(Producer producer);
-
-    /**
-     * @param producer
-     * @return
-     * @since 0.1.0
-     */
-    public Producer stopProducer(Producer producer);
+    public String startProducer(Producer producer);
 
     public Producer stopProducerById(String id);
 

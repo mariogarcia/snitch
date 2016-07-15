@@ -4,41 +4,26 @@ import static spark.Spark.post;
 import static spark.Spark.port;
 import static spark.Spark.delete;
 
-import spark.Request;
-import spark.Response;
+import static columbus.twitter.Handlers.addProducer;
+import static columbus.twitter.Handlers.deleteProducer;
 
-import columbus.common.Producer;
 import columbus.common.ProducerManager;
 import columbus.common.DefaultProducerManager;
-import columbus.twitter.TwitterHashtagProducer;
 
+/**
+ * @since 0.1.0
+ */
 public class Application {
-    static final ProducerManager manager = new DefaultProducerManager();
 
+    private static final ProducerManager manager = new DefaultProducerManager();
+
+    /**
+     * @since 0.1.0
+     */
     public static void main(String args[]) throws Exception {
         port(6060);
 
-        post("/twitter/:hash", Application::addProducer);
-        delete("/twitter/:id", Application::deleteProducer);
-    }
-
-    public static String addProducer(final Request req, final Response res) {
-        String hashtag = req.params("hash");
-        System.out.println("Creating producer for tag: #" + hashtag);
-
-        Producer producer = manager.startProducer(new TwitterHashtagProducer("twitter-" + hashtag,"#" + hashtag));
-        res.status(201);
-
-        return producer.getId();
-    }
-
-    public static String deleteProducer(final Request req, final Response res) {
-        String id = req.params("id");
-        System.out.println("Stopping producer with id: " + id);
-
-        manager.stopProducerById(id);
-        res.status(204);
-
-        return "";
+        post("/twitter/:hash", (req, res) -> addProducer(req, res, manager));
+        delete("/twitter/:id", (req, res) -> deleteProducer(req, res, manager));
     }
 }

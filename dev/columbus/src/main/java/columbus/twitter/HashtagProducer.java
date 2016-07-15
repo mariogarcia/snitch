@@ -19,7 +19,7 @@ import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
 
-public class TwitterHashtagProducer extends KProducer<String,String> {
+public class HashtagProducer extends KProducer<String,String> {
 
     private final List<String> hashtagList;
     private final String kafkaTopic;
@@ -29,7 +29,7 @@ public class TwitterHashtagProducer extends KProducer<String,String> {
      * @param hashtagList
      * @param kafkaTopic
      */
-    public TwitterHashtagProducer(String kafkaTopic, String... hashtagList) {
+    public HashtagProducer(String kafkaTopic, String... hashtagList) {
         super("twitter.props");
 
         this.kafkaTopic = kafkaTopic;

@@ -21,7 +21,6 @@ import columbus.common.Producer;
 public abstract class KProducer<T,S> implements Producer<KafkaProducer<T,S>> {
 
     private final String propertiesFileName;
-    private String id;
     protected AtomicBoolean interrupted = new AtomicBoolean(false);
 
     /**
@@ -81,13 +80,5 @@ public abstract class KProducer<T,S> implements Producer<KafkaProducer<T,S>> {
         KafkaProducer<T, S> kafkaProducer = new KafkaProducer<>(properties);
 
         return kafkaProducer;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return this.id;
     }
 }

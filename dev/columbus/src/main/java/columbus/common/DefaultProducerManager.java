@@ -11,28 +11,17 @@ public class DefaultProducerManager implements ProducerManager {
     private static final ExecutorService executorService = Executors.newFixedThreadPool(10);
     private static final ConcurrentHashMap<String,Producer> producers = new ConcurrentHashMap<>();
 
-
     /**
      * {@inheritDoc}
      */
-    public Producer startProducer(Producer producer) {
-        executorService.execute(producer);
+    public String startProducer(Producer producer) {
         String uuid = UUID.randomUUID().toString();
         System.out.println("Starting producer: " + uuid);
 
         producers.put(uuid, producer);
+        executorService.execute(producer);
 
-        return producer;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Producer stopProducer(Producer producer) {
-        return producers.computeIfPresent(producer.getId(),(String k, Producer p) -> {
-                p.interrupt();
-                    return p;
-        });
+        return uuid;
     }
 
     public Producer stopProducerById(String id) {
