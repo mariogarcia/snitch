@@ -7,6 +7,7 @@ import static spark.Spark.delete;
 import static columbus.twitter.Handlers.addProducer;
 import static columbus.twitter.Handlers.deleteProducer;
 
+import columbus.twitter.Handlers;
 import columbus.common.ProducerManager;
 import columbus.common.DefaultProducerManager;
 
@@ -23,7 +24,7 @@ public class Application {
     public static void main(String args[]) throws Exception {
         port(6060);
 
-        post("/twitter/:hash", (req, res) -> addProducer(req, res, manager));
-        delete("/twitter/:id", (req, res) -> deleteProducer(req, res, manager));
+        post("/twitter/:hash", (req, res) -> addProducer(req, res, manager), Handlers::toJSON);
+        delete("/twitter/:id", (req, res) -> deleteProducer(req, res, manager), Handlers::toJSON);
     }
 }

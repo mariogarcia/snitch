@@ -13,6 +13,7 @@ dependencies {
     compile 'com.twitter:hbc-core:2.2.0'
     compile 'com.sparkjava:spark-core:2.5'
     compile 'org.apache.kafka:kafka-clients:0.10.0.0'
+    compile 'com.google.code.gson:gson:2.6.2'
 
     testCompile 'junit:junit:4.12'
 }
