@@ -30,6 +30,9 @@ object TweetWordCount {
   }
 
   def getContentFrom(tweet: String) :String = {
+    JSON.globalNumberParser    = { in: String => 0 }
+    JSON.perThreadNumberParser = { in: String => 0 }
+
     return JSON
       .parseFull(tweet)
       .get
