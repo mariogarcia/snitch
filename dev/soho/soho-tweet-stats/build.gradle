@@ -15,6 +15,8 @@ plugins {
 dependencies {
   compileOnly 'org.scala-lang:scala-library:2.10'
   compileOnly 'org.apache.spark:spark-core_2.10:1.1.0'
+
+  compile project(":common")
   compile 'org.apache.spark:spark-streaming_2.10:1.6.2'
   compile 'org.apache.spark:spark-streaming-kafka_2.10:1.6.2'
 }
