@@ -1,5 +1,37 @@
 == Modules
 
+[ditaa,align=center]
+....
+
+                       /------------+
+                       |            |
+                       |  Columbus  |
+                       |            |
+                       +------+-----/
+                              |
+                              |
+                              |
+                              v
+        +-------------------------------------------+
+        |                                           |
+        |                  KAFKA                    |
+        |                                           |
+        +------------+---------------+--------------+
+                     |               | ^
+                     |               | |
+                     |               | |
+                     v               v |
+                /-----------+   /------+----+
+                |           |   |           |
+                |  Galileo  |   |   Soho    |
+                |           |   |  (Spark)  |
+                |           |   |           |
+                +-----------/   +-----------/
+
+
+....
+
+
 === Columbus
 
 `Columbus` module was built to discover new data. At the moment it feeds
@@ -30,11 +62,3 @@ other support (database, text files...)
 Tasks are written in http://scala-lang.org[Scala]. The main reason is
 because I wanted to practising this language and also because there's
 lot of documentation written in Scala.
-
-[ditaa]
-....
-
-
-
-
-....

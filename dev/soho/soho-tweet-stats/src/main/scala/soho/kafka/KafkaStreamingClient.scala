@@ -8,6 +8,8 @@ import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.api.java.JavaStreamingContext
 import org.apache.spark.streaming.api.java.JavaPairReceiverInputDStream
 
+import collection.JavaConversions._
+
 import snitch.common._
 
 /**
@@ -17,26 +19,31 @@ import snitch.common._
  * @param groupId
  * @param topics
  */
-class KafkaStreamingClient(zkQuorum: String, groupId: String, topics: java.util.Map[String,Integer]) {
-  val sparkContext = new SparkContext(new SparkConf().setAppName(""))
-  val sparkStreamingContext = new StreamingContext(sparkContext, Seconds(2))
+class KafkaStreamingClient(conf: SparkConf) {
+  val sparkContext = new SparkContext(confq)
+
 
   /**
    * @return
    */
-  def createInputStream: JavaPairReceiverInputDStream[String,String] = {
-    val jssc = new JavaStreamingContext(sparkStreamingContext)
-
-    return KafkaUtils.createStream(jssc, zkQuorum, groupId, topics)
+  def createStreamProcessor(zkQuorum: String, groupId: String): StreamProcessor = {
+    return new StreamProcessor(sparkContext, zkQuorum, groupId)
   }
+}
 
-  /**
-   * @return
-   */
-  def createSink(): Broadcast[KafkaSink] = {
+class StreamProcessor(sparkContext: SparkContext, zkQuorum: String, groupId: String) {
+
+  def process(topic: String, fn: (JavaPairReceiverInputDStream[String,String],Broadcast[KafkaSink]) => Unit): Unit = {
+    val sparkStreamingContext = new StreamingContext(sparkContext, Seconds(2))
+    val jssc                  = new JavaStreamingContext(sparkStreamingContext)
     val kafkaProps: java.util.Map[String,Object] = Props.loadAsMap("/kafka.properties")
-    val kafkaSink = sparkContext.broadcast(KafkaSink(kafkaProps))
+    val kafkaSink             = sparkContext.broadcast(KafkaSink(kafkaProps))
+    val jmap                  = mapAsJavaMap(Map(topic -> 2)).asInstanceOf[java.util.Map[String,Integer]]
+    val stream: JavaPairReceiverInputDStream[String,String] = KafkaUtils.createStream(jssc, "zkQuorum", "groupId", jmap)
 
-    return kafkaSink
+    fn(stream, kafkaSink)
+
+    jssc.start()
+    jssc.awaitTermination()
   }
 }

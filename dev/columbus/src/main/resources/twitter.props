@@ -1,0 +1,13 @@
+bootstrap.servers=kafka:9092
+acks=all
+retries=0
+batch.size=16384
+auto.commit.interval.ms=1000
+linger.ms=0
+key.serializer=org.apache.kafka.common.serialization.StringSerializer
+value.serializer=org.apache.kafka.common.serialization.StringSerializer
+block.on.buffer.full=true
+api-key=U2hJlLi0OendY4fyRm0WqIXm0
+api-secret=C8OyRGw96OAEvpE8NKUIT0LjCNptuzL6j4FdcF6l2PZBLKxkQb
+token=80546607-MRCBEnw14lGVVF5rUJXMWGPt1tvkOS7DEClOhyAlJ
+token-secret=2pnGBZ9xvRpxHSLUnUY1MyCQEx0BhwMOwbBhFWrqpnWcV

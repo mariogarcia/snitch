@@ -32,7 +32,7 @@ class TwitterSSEHandler implements Handler {
   }
 
   ServerSentEvents createSSE(final Context ctx) {
-    Publisher<Map> stream = periodically(ctx, Duration.ofMillis(FREQUENCY_MS), { i -> service.getNextTweet("twitter-topic") })
+    Publisher<Map> stream = periodically(ctx, Duration.ofMillis(FREQUENCY_MS), { i -> service.getNextTweet("twitter-PrayForNice") })
     ServerSentEvents events = serverSentEvents(stream, this.&createEvent)
 
     return events
